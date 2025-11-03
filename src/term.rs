@@ -8,7 +8,10 @@ pub struct Term {
 
 impl Term {
     pub fn new(name: impl Into<String>, kind: MembershipKind) -> Self {
-        Self { name: name.into(), kind }
+        Self {
+            name: name.into(),
+            kind,
+        }
     }
 
     pub fn degree(&self, x: f64) -> f64 {

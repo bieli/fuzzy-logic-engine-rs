@@ -1,4 +1,4 @@
-use fuzzy_logic_engine_rs::rule::{Rule, Connective};
+use fuzzy_logic_engine_rs::rule::{Connective, Rule};
 
 #[test]
 fn test_create_rule() {

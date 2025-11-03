@@ -12,3 +12,21 @@ pub struct LinguisticVariable {
     pub range: Range,
     pub terms: Vec<Term>,
 }
+
+impl LinguisticVariable {
+    pub fn new(name: impl Into<String>, range: Range) -> Self {
+        Self {
+            name: name.into(),
+            range,
+            terms: Vec::new(),
+        }
+    }
+
+    pub fn add_term(&mut self, term: Term) {
+        self.terms.push(term);
+    }
+
+    pub fn term(&self, name: &str) -> Option<&Term> {
+        self.terms.iter().find(|t| t.name == name)
+    }
+}
