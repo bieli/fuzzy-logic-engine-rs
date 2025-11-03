@@ -10,3 +10,17 @@ pub struct Rule {
     pub consequent: Vec<String>,         // term names per output variable
     pub connective: Connective,          // connective type: And, Or
 }
+
+impl Rule {
+    pub fn new(
+        antecedent: Vec<Option<String>>,
+        consequent: Vec<String>,
+        connective: Connective,
+    ) -> Self {
+        Self {
+            antecedent,
+            consequent,
+            connective,
+        }
+    }
+}
