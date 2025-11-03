@@ -2,9 +2,13 @@
 name = "fuzzy_logic_engine_rs"
 version = "0.1.0"
 edition = "2021"
+authors = ["Marcin Bielak <marcin.bieli+FuzzyLogicEngineRs@gmail.com>"]
 description = "Fuzzy logic inference engine library in Rust"
 license = "Apache 2.0"
 repository = "https://github.com/bieli/fuzzy-logic-engine-rs"
+homepage = "https://github.com/bieli/fuzzy-logic-engine-rs"
+
+keywords = ["fuzzy logic", "logic", "inference", "engine", "rules based"]
 
 [dependencies]
 thiserror = "1.0"
