@@ -1,0 +1,10 @@
+[package]
+name = "fuzzy_logic_engine_rs"
+version = "0.1.0"
+edition = "2021"
+description = "Fuzzy logic inference engine library in Rust"
+license = "Apache 2.0"
+repository = "https://github.com/bieli/fuzzy-logic-engine-rs"
+
+[dependencies]
+thiserror = "1.0"
