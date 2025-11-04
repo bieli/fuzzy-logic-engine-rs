@@ -120,6 +120,9 @@ impl MembershipKind {
 - **`math_helpers.rs`**  
   Include important utility functions: `linspace` (for generating vectors values with step) and `centroid` (center of gravity) method for defuzzification.
 
+- **`output.rs`**
+  Output results `OutputResult` structure with `describe()` method incl. details for easy debugging outputs.
+
 - **`fis.rs`**  
   The fuzzy inference engine.  
   - Evaluates rules against crisp inputs  

@@ -17,4 +17,8 @@ impl Term {
     pub fn degree(&self, x: f64) -> f64 {
         self.kind.degree(x)
     }
+
+    pub fn membership(&self, x: &Vec<f64>) -> f64 {
+        self.kind.degree(*x.first().unwrap())
+    }
 }

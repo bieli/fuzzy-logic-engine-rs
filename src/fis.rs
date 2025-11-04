@@ -1,5 +1,6 @@
 use crate::{
     math_helpers::{centroid, linspace},
+    output::OutputResult,
     rule::{Connective, Rule},
     variable::LinguisticVariable,
 };
@@ -121,5 +122,42 @@ impl FuzzyInferenceSystem {
         }
 
         Err(FisError::UndefinedFuzzyInferenceSystemType)
+    }
+
+    // Compute outputs and return more descriptive output in OutputResult structure
+    pub fn compute_verbose(
+        &self,
+        fis_type: FisType,
+        crisp_inputs: &[f64],
+    ) -> Result<Vec<OutputResult>, FisError> {
+        let crisp_values = self.compute(fis_type, crisp_inputs);
+
+        let mut results = Vec::new();
+
+        for (out_var, crisp_value) in self.outputs.iter().zip(crisp_values.iter()) {
+            // Find the best matching term
+            let mut best_term = None;
+            let mut best_mu = -1.0;
+            let mut term_kind = None;
+
+            for term in &out_var.terms {
+                let mu = term.membership(&crisp_value.clone());
+                if mu > best_mu {
+                    best_mu = mu;
+                    best_term = Some(term.name.clone());
+                    term_kind = Some(format!("{:?}", term.kind));
+                }
+            }
+
+            results.push(OutputResult {
+                variable_name: out_var.name.clone(),
+                range: out_var.range.clone(),
+                value: crisp_value.clone(),
+                best_term,
+                term_kind,
+            });
+        }
+
+        Ok(results)
     }
 }
