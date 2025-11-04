@@ -1,6 +1,6 @@
 [package]
 name = "fuzzy_logic_engine_rs"
-version = "0.7.4"
+version = "0.8.0"
 edition = "2021"
 authors = ["Marcin Bielak <marcin.bieli+FuzzyLogicEngineRs@gmail.com>"]
 description = "Fuzzy logic inference engine library in Rust"
