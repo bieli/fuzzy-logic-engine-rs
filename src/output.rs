@@ -11,14 +11,20 @@ pub struct OutputResult {
 
 impl OutputResult {
     pub fn describe(&self) -> String {
+        let val_str = if let Some(v) = self.value.first() {
+            format!("{:.3}", v)
+        } else {
+            "NaN".to_string()
+        };
+
         match (&self.best_term, &self.term_kind) {
             (Some(term), Some(kind)) => format!(
-                "{} = {:?} in range [{:.1}, {:.1}] -> term '{}' ({})",
-                self.variable_name, self.value, self.range.min, self.range.max, term, kind
+                "{} = {} in range [{:.1}, {:.1}] → term '{}' ({})",
+                self.variable_name, val_str, self.range.min, self.range.max, term, kind
             ),
             _ => format!(
-                "{} = {:?} in range [{:.1}, {:.1}]",
-                self.variable_name, self.value, self.range.min, self.range.max
+                "{} = {} in range [{:.1}, {:.1}]",
+                self.variable_name, val_str, self.range.min, self.range.max
             ),
         }
     }

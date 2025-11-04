@@ -181,31 +181,31 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // Rules
     system.set_rules(vec![
-        // If budget is low and urgency is high → Buy
+        // If budget is low and urgency is high -> Buy
         Rule::new(
             vec![Some("low".into()), None, Some("high".into()), None],
             vec!["buy".into()],
             Connective::And,
         ),
-        // If expertise is high and budget is high → Build
+        // If expertise is high and budget is high -> Build
         Rule::new(
             vec![Some("high".into()), Some("high".into()), None, None],
             vec!["build".into()],
             Connective::And,
         ),
-        // If vendor is excellent and urgency is high → Buy
+        // If vendor is excellent and urgency is high -> Buy
         Rule::new(
             vec![None, None, Some("high".into()), Some("excellent".into())],
             vec!["buy".into()],
             Connective::And,
         ),
-        // If expertise is low and vendor is poor → Neutral (uncertain)
+        // If expertise is low and vendor is poor -> Neutral (uncertain)
         Rule::new(
             vec![None, Some("low".into()), None, Some("poor".into())],
             vec!["neutral".into()],
             Connective::And,
         ),
-        // If budget is medium and expertise is medium → Neutral
+        // If budget is medium and expertise is medium -> Neutral
         Rule::new(
             vec![Some("medium".into()), Some("medium".into()), None, None],
             vec!["neutral".into()],
