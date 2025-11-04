@@ -128,13 +128,13 @@ impl MembershipKind {
 
 - **`examples/`**  
   Demonstrates a fuzzy logic decission systems with a few real life cases:  
-  - [it_department_decision__build_vs_buy.rs](it_department_decision__build_vs_buy.rs)
-  - [private_financial_decisions_at_home.rs](private_financial_decisions_at_home.rs)
+  - [it_department_decision__build_vs_buy.rs](examples/it_department_decision__build_vs_buy.rs)
+  - [private_financial_decisions_at_home.rs](examples/private_financial_decisions_at_home.rs)
   - [restaurant_tip_level.rs](examples/restaurant_tip_level.rs)
-  - [robotic_behaviours__abstacle_avoidance.rs](robotic_behaviours__abstacle_avoidance.rs)
-  - [smart_irrigation_in_iot_farming.rs](smart_irrigation_in_iot_farming.rs)
-  - [smart_office_energy_management.rs](smart_office_energy_management.rs)
-  - [steering_wheel_in_autonomous_car.rs](steering_wheel_in_autonomous_car.rs)
+  - [robotic_behaviours__abstacle_avoidance.rs](examples/robotic_behaviours__abstacle_avoidance.rs)
+  - [smart_irrigation_in_iot_farming.rs](examples/smart_irrigation_in_iot_farming.rs)
+  - [smart_office_energy_management.rs](examples/smart_office_energy_management.rs)
+  - [steering_wheel_in_autonomous_car.rs](examples/steering_wheel_in_autonomous_car.rs)
 
 ## How to start?
 
