@@ -56,6 +56,7 @@ impl FuzzyInferenceSystem {
 
     // Compute precise outputs using selected inference type and centroid defuzzification
     pub fn compute(&self, fis_type: FisType, crisp_inputs: &[f64]) -> Result<Vec<f64>, FisError> {
+        //println!("crisp_inputs.len()={:?}, self.inputs.len()={:?}", crisp_inputs.len(), self.inputs.len());
         if crisp_inputs.len() != self.inputs.len() {
             return Err(FisError::InputLen {
                 expected: self.inputs.len(),
@@ -130,34 +131,41 @@ impl FuzzyInferenceSystem {
         fis_type: FisType,
         crisp_inputs: &[f64],
     ) -> Result<Vec<OutputResult>, FisError> {
-        let crisp_values = self.compute(fis_type, crisp_inputs);
+        let result = self.compute(fis_type, crisp_inputs);
 
-        let mut results = Vec::new();
-
-        for (out_var, crisp_value) in self.outputs.iter().zip(crisp_values.iter()) {
-            // Find the best matching term
-            let mut best_term = None;
-            let mut best_mu = -1.0;
-            let mut term_kind = None;
-
-            for term in &out_var.terms {
-                let mu = term.membership(&crisp_value.clone());
-                if mu > best_mu {
-                    best_mu = mu;
-                    best_term = Some(term.name.clone());
-                    term_kind = Some(format!("{:?}", term.kind));
-                }
+        match result {
+            Err(error) => {
+                return Err(error);
             }
+            Ok(ref other) => {
+                let mut results = Vec::new();
 
-            results.push(OutputResult {
-                variable_name: out_var.name.clone(),
-                range: out_var.range.clone(),
-                value: crisp_value.clone(),
-                best_term,
-                term_kind,
-            });
+                for (out_var, crisp_value) in self.outputs.iter().zip(result.iter()) {
+                    // Find the best matching term
+                    let mut best_term = None;
+                    let mut best_mu = -1.0;
+                    let mut term_kind = None;
+
+                    for term in &out_var.terms {
+                        let mu = term.membership(&crisp_value.clone());
+                        if mu > best_mu {
+                            best_mu = mu;
+                            best_term = Some(term.name.clone());
+                            term_kind = Some(format!("{:?}", term.kind));
+                        }
+                    }
+
+                    results.push(OutputResult {
+                        variable_name: out_var.name.clone(),
+                        range: out_var.range.clone(),
+                        value: crisp_value.clone(),
+                        best_term,
+                        term_kind,
+                    });
+                }
+
+                Ok(results)
+            }
         }
-
-        Ok(results)
     }
 }
