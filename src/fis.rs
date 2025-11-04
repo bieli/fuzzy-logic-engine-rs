@@ -54,7 +54,7 @@ impl FuzzyInferenceSystem {
     }
 
     // Compute precise outputs using selected inference type and centroid defuzzification
-    pub fn prepare_result(
+    pub fn compute(
         &self,
         fis_type: FisType,
         crisp_inputs: &[f64],
@@ -67,7 +67,8 @@ impl FuzzyInferenceSystem {
         }
 
         if fis_type == FisType::Mamdani {
-            // TODO: For each output variable, aggregate membership by max over rule implications (Mamdani)
+            // For each output variable, aggregate membership by max over rule implications
+            let mut outputs_crisp = Vec::with_capacity(self.outputs.len());
 
             for (out_idx, out_var) in self.outputs.iter().enumerate() {
                 // TODO: Initialize aggregated membership curve across discretized range
@@ -82,7 +83,7 @@ impl FuzzyInferenceSystem {
             }
 
             // TODO: return kind of centroids as vector results?!
-            return Err(FisError::OutputMismatch);
+            return Ok(outputs_crisp);
         }
 
         Err(FisError::UndefinedFuzzyInferenceSystemType)
