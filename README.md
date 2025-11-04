@@ -146,7 +146,7 @@ impl MembershipKind {
 
 ```toml
 [dependencies]
-fuzzy_logic_inference_rs = "0.6.0"
+fuzzy_logic_inference_rs = "0.7.3"
 ```
 ### How to use library
 Please look at `examples/` sub directory.
