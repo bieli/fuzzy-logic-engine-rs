@@ -32,7 +32,7 @@ Every fuzzy rule feels like a small story about the world, capturing experience 
 Building this Rust library is my way of celebrating that elegance, while also making it accessible for modern, high‑performance applications.
 Ultimately, fuzzy logic reminds us that the world is not binary, and that’s precisely what makes it so endlessly interesting.
 
-## What is Fuzzy Logic?
+### What is Fuzzy Logic?
 
 Fuzzy logic extends classical Boolean logic by allowing **degrees of truth** between 0 and 1.  
 Instead of saying *“the service was good”* (true/false), fuzzy logic allows *“the service was 0.7 good and 0.3 average.”*
@@ -48,3 +48,53 @@ Fuzzy inference systems are widely used in:
 - Control systems (washing machines, thermostats, robotics)
 - Decision support (recommendation engines, risk analysis)
 - AI reasoning under uncertainty
+
+
+## System Components
+
+- **`membership.rs`**  
+  Implements membership functions (triangular, trapezoidal, Gaussian).  
+  Each function maps a crisp input to a degree of membership in `[0, 1]`.
+
+- **`term.rs`**  
+  Represents a fuzzy term (e.g., *cold*, *average*, *generous*) with a name and membership function.
+
+- **`variable.rs`**  
+  Defines a linguistic variable (e.g., *temperature*, *tip*) with a range and associated terms.
+
+- **`rule.rs`**  
+  Encodes fuzzy rules with antecedents (conditions) and consequents (outputs). Supports `AND`/`OR` connectives.
+
+- **`fis.rs`**  
+  The fuzzy inference engine.  
+  - Evaluates rules against crisp inputs  
+  - Aggregates fuzzy outputs  
+  - Defuzzifies results using centroid method  
+
+- **`examples/`**  
+  Demonstrates a fuzzy logic decission systems with a few real life cases:  
+  - it_department_decision__build_vs_buy.rs
+  - private_financial_decisions_at_home.rs
+  - restaurant_tip_level.rs
+  - robotic_behaviours__abstacle_avoidance.rs
+  - smart_irrigation_in_iot_farming.rs
+  - smart_office_energy_management.rs
+  - steering_wheel_in_autonomous_car.rs
+
+## How to start?
+
+### Add dependency to your RUST based project
+
+```toml
+[dependencies]
+fuzzy-logic-inference-rs = "0.1.0"
+```
+### How to use library
+Please look at `examples/` sub directory.
+
+### TODO list
+- [X] Add CI with Rust liner and running unit tests
+- [ ] Add more membership functions (sigmoid, bell, etc.)
+- [ ] Support Sugeno inference
+- [ ] Visualization helpers (plot membership functions)
+- [ ] no_std compatibility
