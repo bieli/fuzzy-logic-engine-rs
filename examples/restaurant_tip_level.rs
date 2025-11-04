@@ -1,8 +1,13 @@
-use fuzzy_logic_engine_rs::variable::LinguisticVariable;
-use fuzzy_logic_engine_rs::variable::Range;
+use fuzzy_logic_engine_rs::{
+    fis::FuzzyInferenceSystem,
+    membership::MembershipKind as M,
+    rule::{Connective, Rule},
+    term::Term,
+    variable::{LinguisticVariable, Range},
+};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    //TODO: let mut system = FIS::new("Fuzzy logic based TIP system");
+    let mut system = FuzzyInferenceSystem::new("Fuzzy logic based TIP system");
 
     let mut tip = LinguisticVariable::new(
         "tip",

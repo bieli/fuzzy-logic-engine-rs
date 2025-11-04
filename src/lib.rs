@@ -1,3 +1,4 @@
+pub mod fis;
 pub mod membership;
 pub mod rule;
 pub mod term;
