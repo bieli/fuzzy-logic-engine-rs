@@ -2,7 +2,6 @@ use crate::{
     math_helpers::{centroid, linspace},
     rule::{Connective, Rule},
     variable::LinguisticVariable,
-    variable::Range,
 };
 
 #[derive(thiserror::Error, Debug)]
@@ -73,14 +72,40 @@ impl FuzzyInferenceSystem {
                 let mut agg: Vec<f64> = vec![0.0; xs.len()];
 
                 for rule in &self.rules {
-                    // TODO: Rule firing strength from antecedents
+                    // Rule firing strength from antecedents
+                    let mut degrees: Vec<f64> = Vec::with_capacity(self.inputs.len());
+                    for (i, ant_term_opt) in rule.antecedent.iter().enumerate() {
+                        let deg = match ant_term_opt {
+                            Some(term_name) => {
+                                let var = &self.inputs[i];
+                                let term = var
+                                    .term(term_name)
+                                    .ok_or_else(|| FisError::TermNotFound(term_name.clone()))?;
+                                term.degree(crisp_inputs[i])
+                            }
+                            None => 1.0, // wildcard
+                        };
+                        degrees.push(deg);
+                    }
+
+                    let fire: f64 = match rule.connective {
+                        Connective::And => degrees.into_iter().fold(1.0, |a, d| a.min(d)), // min
+                        Connective::Or => degrees.into_iter().fold(0.0, |a, d| a.max(d)),  // max
+                    };
 
                     // Apply to consequent terms of the current output
                     // We allow multiple outputs; pick the term that belongs to current out var if present
                     let cons_term_name_opt = rule.consequent.get(out_idx).cloned();
                     if let Some(cons_term_name) = cons_term_name_opt {
                         if let Some(term) = out_var.term(&cons_term_name) {
-                            // TODO: Aggregate: max between existing agg and clipped term curve
+                            // Aggregate: max between existing agg and clipped term curve
+                            for (j, x) in xs.iter().enumerate() {
+                                let mu = term.degree(*x);
+                                let clipped = fire.min(mu);
+                                if clipped > agg[j] {
+                                    agg[j] = clipped;
+                                }
+                            }
                         } else {
                             return Err(FisError::TermNotFound(cons_term_name));
                         }

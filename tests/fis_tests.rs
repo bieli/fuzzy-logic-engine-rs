@@ -70,5 +70,5 @@ fn test_simple_tip_system() {
     )]);
 
     let result = system.compute(FisType::Mamdani, &[9.0]).unwrap();
-    // TODO: assert!(result[0] > 20.0); // should lean toward generous
+    assert!(result[0] > 20.0); // should lean toward generous
 }
