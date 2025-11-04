@@ -11,7 +11,7 @@ impl MembershipKind {
             MembershipKind::Triangle { a, b, c } => {
                 if x <= a || x >= c {
                     0.0
-                } else if x == b {
+                } else if (x - b).abs() < f64::EPSILON {
                     1.0
                 } else if x < b {
                     (x - a) / (b - a)
@@ -19,8 +19,21 @@ impl MembershipKind {
                     (c - x) / (c - b)
                 }
             }
-            MembershipKind::Trapezoid { .. } => todo!(),
-            MembershipKind::Gauss { .. } => todo!(),
+            MembershipKind::Trapezoid { a, b, c, d } => {
+                if x <= a || x >= d {
+                    0.0
+                } else if x >= b && x <= c {
+                    1.0
+                } else if x > a && x < b {
+                    (x - a) / (b - a)
+                } else {
+                    (d - x) / (d - c)
+                }
+            }
+            MembershipKind::Gauss { sigma, mu } => {
+                let t = (x - mu) / sigma;
+                (-0.5 * t * t).exp()
+            }
         }
     }
 }
