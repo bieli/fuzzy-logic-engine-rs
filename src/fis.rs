@@ -15,6 +15,8 @@ pub enum FisError {
     TermNotFound(String),
     #[error("undefined fuzzy inference system type")]
     UndefinedFuzzyInferenceSystemType,
+    #[error("duplicate term: {0}")]
+    DuplicateTerm(String),
 }
 
 #[derive(PartialEq, Debug)]
@@ -56,7 +58,6 @@ impl FuzzyInferenceSystem {
 
     // Compute precise outputs using selected inference type and centroid defuzzification
     pub fn compute(&self, fis_type: FisType, crisp_inputs: &[f64]) -> Result<Vec<f64>, FisError> {
-        //println!("crisp_inputs.len()={:?}, self.inputs.len()={:?}", crisp_inputs.len(), self.inputs.len());
         if crisp_inputs.len() != self.inputs.len() {
             return Err(FisError::InputLen {
                 expected: self.inputs.len(),

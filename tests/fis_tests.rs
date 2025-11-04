@@ -268,3 +268,119 @@ fn test_term_not_found_error() {
         other => panic!("Expected FisError::TermNotFound, got {:?}", other),
     }
 }
+
+#[test]
+fn test_wildcard_rule_triggers_none_branch() {
+    // Define input variable
+    let mut temp = LinguisticVariable::new(
+        "Temperature",
+        Range {
+            min: 0.0,
+            max: 100.0,
+        },
+    );
+    temp.add_term(Term::new(
+        "cold",
+        M::Triangle {
+            a: 0.0,
+            b: 0.0,
+            c: 50.0,
+        },
+    ));
+
+    // Define output variable
+    let mut fan = LinguisticVariable::new(
+        "FanSpeed",
+        Range {
+            min: 0.0,
+            max: 10.0,
+        },
+    );
+    fan.add_term(Term::new(
+        "slow",
+        M::Triangle {
+            a: 0.0,
+            b: 0.0,
+            c: 5.0,
+        },
+    ));
+
+    // Build FIS
+    let mut fis = FuzzyInferenceSystem::new("Wildcard Test");
+    fis.add_input(temp);
+    fis.add_output(fan);
+
+    // Rule with a wildcard antecedent: no condition on the input
+    let wildcard_rule = Rule::new(vec![None], vec!["slow".into()], Connective::And);
+    fis.set_rules(vec![wildcard_rule]);
+
+    // Evaluate with any input (doesn't matter, wildcard should fire)
+    let result = fis.compute_verbose(FisType::Mamdani, &[42.0]).unwrap();
+
+    // We expect one output result
+    assert_eq!(result.len(), 1);
+    let out = &result[0];
+
+    // The best term should be "slow" because the wildcard rule always fires
+    assert_eq!(out.best_term.as_deref(), Some("slow"));
+}
+
+#[test]
+fn test_duplicate_trapezoid_terms_should_error() {
+    // Input variable
+    let mut temp = LinguisticVariable::new(
+        "Temperature",
+        Range {
+            min: 0.0,
+            max: 100.0,
+        },
+    );
+    temp.add_term(Term::new(
+        "medium",
+        M::Trapezoid {
+            a: 20.0,
+            b: 40.0,
+            c: 60.0,
+            d: 80.0,
+        },
+    ));
+
+    // Output variable with two identical terms
+    let mut fan = LinguisticVariable::new(
+        "FanSpeed",
+        Range {
+            min: 0.0,
+            max: 10.0,
+        },
+    );
+    fan.add_term(Term::new(
+        "normal",
+        M::Trapezoid {
+            a: 2.0,
+            b: 4.0,
+            c: 6.0,
+            d: 8.0,
+        },
+    ));
+    let add_term_result = fan.add_term(Term::new(
+        "normal",
+        M::Trapezoid {
+            a: 2.0,
+            b: 4.0,
+            c: 6.0,
+            d: 8.0,
+        },
+    ));
+
+    match add_term_result {
+        Err(FisError::DuplicateTerm(term_name)) => {
+            assert_eq!(term_name, "normal");
+        }
+        other => {
+            panic!(
+                "Expected error due to duplicate terms, but got outputs: {:?}",
+                other
+            );
+        }
+    }
+}

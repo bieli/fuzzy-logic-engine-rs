@@ -1,4 +1,5 @@
 use crate::term::Term;
+use crate::fis::FisError;
 
 #[derive(Debug, Clone, Copy)]
 pub struct Range {
@@ -22,8 +23,12 @@ impl LinguisticVariable {
         }
     }
 
-    pub fn add_term(&mut self, term: Term) {
+    pub fn add_term(&mut self, term: Term) -> Result<(), FisError> {
+        if self.terms.iter().any(|t| t.name == term.name) {
+            return Err(FisError::DuplicateTerm(term.name.clone()));
+        }
         self.terms.push(term);
+        Ok(())
     }
 
     pub fn term(&self, name: &str) -> Option<&Term> {
