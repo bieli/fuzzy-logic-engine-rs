@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 authors = ["Marcin Bielak <marcin.bieli+FuzzyLogicEngineRs@gmail.com>"]
 description = "Fuzzy logic inference engine library in Rust"
-license = "Apache 2.0"
+license = "Apache-2.0"
 repository = "https://github.com/bieli/fuzzy-logic-engine-rs"
 homepage = "https://github.com/bieli/fuzzy-logic-engine-rs"
 
