@@ -120,5 +120,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let result = system.compute(FisType::Mamdani, &[7.892, 7.41])?;
     println!("{result:?}");
     assert!(result[0] > 17.0);
+
     Ok(())
 }

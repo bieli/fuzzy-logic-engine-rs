@@ -116,7 +116,7 @@ impl FuzzyInferenceSystem {
                 outputs_crisp.push(centroid);
             }
 
-            // TODO: return kind of centroids as vector results?!
+            // return kind of centroids as vector results?!
             return Ok(outputs_crisp);
         }
 
