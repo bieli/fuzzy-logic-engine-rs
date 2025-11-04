@@ -56,6 +56,58 @@ Fuzzy inference systems are widely used in:
   Implements membership functions (triangular, trapezoidal, Gaussian).  
   Each function maps a crisp input to a degree of membership in `[0, 1]`.
 
+```bash
+impl MembershipKind {
+...
+            /*
+             μ(x)
+                 ^
+             1.0 |           /\
+                 |          /  \
+                 |         /    \
+             0.5 |        /      \
+                 |       /        \
+             0.0 |------/----------\--------->
+                    a   b          c          x
+            */
+            MembershipKind::Triangle { a, b, c }
+
+
+            /*
+             μ(x)
+                 ^
+             1.0 |          _________
+                 |         /         \
+                 |        /           \
+             0.5 |       /             \
+                 |      /               \
+             0.0 |-----/-----------------\--------->
+                   a   b                 c    d     x
+            */
+            MembershipKind::Trapezoid { a, b, c, d }
+
+
+
+            /*
+             μ(x)
+                 ^
+             1.0 |                *
+                 |              *   *
+                 |            *       *
+             0.5 |         *             *
+                 |       *                 *
+                 |     *                     *
+             0.0 |---*-------------------------*--------->
+                    μ-σ           μ           μ+σ         x
+
+             Where:
+             - σ (sigma) controls the width (spread)
+             - μ (mu) is the center of the Gaussian (the peak)
+            */
+            MembershipKind::Gauss { sigma, mu }
+```
+
+
 - **`term.rs`**  
   Represents a fuzzy term (e.g., *cold*, *average*, *generous*) with a name and membership function.
 
