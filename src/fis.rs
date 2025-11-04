@@ -75,9 +75,16 @@ impl FuzzyInferenceSystem {
                 for rule in &self.rules {
                     // TODO: Rule firing strength from antecedents
 
-                    // TODO: Apply to consequent terms of the current output
-
-                    // TODO: We allow multiple outputs; pick the term that belongs to current out var if present
+                    // Apply to consequent terms of the current output
+                    // We allow multiple outputs; pick the term that belongs to current out var if present
+                    let cons_term_name_opt = rule.consequent.get(out_idx).cloned();
+                    if let Some(cons_term_name) = cons_term_name_opt {
+                        if let Some(term) = out_var.term(&cons_term_name) {
+                            // TODO: Aggregate: max between existing agg and clipped term curve
+                        } else {
+                            return Err(FisError::TermNotFound(cons_term_name));
+                        }
+                    }
                 }
 
                 let centroid = centroid(&xs, &agg);
