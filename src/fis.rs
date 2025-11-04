@@ -1,4 +1,5 @@
 use crate::{
+    math_helpers::{centroid, linspace},
     rule::{Connective, Rule},
     variable::LinguisticVariable,
     variable::Range,
@@ -54,11 +55,7 @@ impl FuzzyInferenceSystem {
     }
 
     // Compute precise outputs using selected inference type and centroid defuzzification
-    pub fn compute(
-        &self,
-        fis_type: FisType,
-        crisp_inputs: &[f64],
-    ) -> Result<Vec<f64>, FisError> {
+    pub fn compute(&self, fis_type: FisType, crisp_inputs: &[f64]) -> Result<Vec<f64>, FisError> {
         if crisp_inputs.len() != self.inputs.len() {
             return Err(FisError::InputLen {
                 expected: self.inputs.len(),
@@ -71,7 +68,9 @@ impl FuzzyInferenceSystem {
             let mut outputs_crisp = Vec::with_capacity(self.outputs.len());
 
             for (out_idx, out_var) in self.outputs.iter().enumerate() {
-                // TODO: Initialize aggregated membership curve across discretized range
+                // Initialize aggregated membership curve across discretized range
+                let xs = linspace(out_var.range.min, out_var.range.max, self.resolution);
+                let mut agg: Vec<f64> = vec![0.0; xs.len()];
 
                 for rule in &self.rules {
                     // TODO: Rule firing strength from antecedents
@@ -80,6 +79,9 @@ impl FuzzyInferenceSystem {
 
                     // TODO: We allow multiple outputs; pick the term that belongs to current out var if present
                 }
+
+                let centroid = centroid(&xs, &agg);
+                outputs_crisp.push(centroid);
             }
 
             // TODO: return kind of centroids as vector results?!
