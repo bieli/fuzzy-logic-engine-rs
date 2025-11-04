@@ -66,7 +66,7 @@ Fuzzy inference systems are widely used in:
   Encodes fuzzy rules with antecedents (conditions) and consequents (outputs). Supports `AND`/`OR` connectives.
 
 - **`math_helpers.rs`**  
-  Include important utility functions: `linspace` (for generating vectors values with step) and `centroid` (center of gravity) method.
+  Include important utility functions: `linspace` (for generating vectors values with step) and `centroid` (center of gravity) method for defuzzification.
 
 - **`fis.rs`**  
   The fuzzy inference engine.  
