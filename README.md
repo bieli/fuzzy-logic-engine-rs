@@ -68,7 +68,7 @@ impl MembershipKind {
              0.5 |        /      \
                  |       /        \
              0.0 |------/----------\--------->
-                    a   b          c          x
+                        a     b    c          x
             */
             MembershipKind::Triangle { a, b, c }
 
