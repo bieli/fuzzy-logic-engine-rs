@@ -87,7 +87,7 @@ Fuzzy inference systems are widely used in:
 
 ```toml
 [dependencies]
-fuzzy-logic-inference-rs = "0.1.0"
+fuzzy-logic-inference-rs = "0.3.0"
 ```
 ### How to use library
 Please look at `examples/` sub directory.
