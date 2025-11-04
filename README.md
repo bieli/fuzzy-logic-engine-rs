@@ -138,6 +138,7 @@ impl MembershipKind {
   - [smart_irrigation_in_iot_farming.rs](examples/smart_irrigation_in_iot_farming.rs)
   - [smart_office_energy_management.rs](examples/smart_office_energy_management.rs)
   - [steering_wheel_in_autonomous_car.rs](examples/steering_wheel_in_autonomous_car.rs)
+  - [motor_control.rs](examples/motor_control.rs)
 
 ## How to start?
 
@@ -151,7 +152,7 @@ fuzzy-logic-inference-rs = "0.3.0"
 Please look at `examples/` sub directory.
 
 ### TODO list
-- [X] Add CI with Rust liner and running unit tests
+- [X] Add CI with Rust linter and running unit tests
 - [ ] Add more membership functions (sigmoid, bell, etc.)
 - [ ] Support Sugeno inference
 - [ ] Visualization helpers (plot membership functions)
