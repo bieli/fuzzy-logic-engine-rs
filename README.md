@@ -1,9 +1,12 @@
 # fuzzy-logic-engine-rs
-Fuzzy logic inference engine written in RUST language
 
 ![CI status](https://github.com/bieli/fuzzy-logic-engine-rs/actions/workflows/test.yaml/badge.svg)
 ![github_tag](https://img.shields.io/github/v/tag/bieli/fuzzy-logic-engine-rs)
 [![Crates.io](https://img.shields.io/crates/v/fuzzy-logic-engine-rs.svg)](https://crates.io/crates/fuzzy-logic-engine-rs)
+
+A **Rust implementation of a fuzzy inference system (FIS)** — inspired by classical fuzzy logic libraries, but designed with Rust’s safety, performance, and ergonomics in mind.
+
+This crate lets you define **linguistic variables**, **membership functions**, and **rules**, then perform **fuzzy inference** and **defuzzification** to obtain crisp outputs. It’s useful **for decision-making systems, control systems, and AI applications** where reasoning with uncertainty is required.
 
 
 ```ruby
@@ -29,5 +32,19 @@ Every fuzzy rule feels like a small story about the world, capturing experience 
 Building this Rust library is my way of celebrating that elegance, while also making it accessible for modern, high‑performance applications.
 Ultimately, fuzzy logic reminds us that the world is not binary, and that’s precisely what makes it so endlessly interesting.
 
+## What is Fuzzy Logic?
 
+Fuzzy logic extends classical Boolean logic by allowing **degrees of truth** between 0 and 1.  
+Instead of saying *“the service was good”* (true/false), fuzzy logic allows *“the service was 0.7 good and 0.3 average.”*
 
+Key concepts:
+- **Linguistic Variable**: A variable described in words (e.g., *temperature*, *speed*, *service quality*).
+- **Term**: A fuzzy set describing a linguistic value (e.g., *cold*, *hot*, *excellent*).
+- **Membership Function**: Defines how crisp values map to fuzzy degrees (triangle, trapezoid, Gaussian, etc.).
+- **Rule**: IF–THEN statements combining fuzzy terms (e.g., *IF service is excellent AND food is good THEN tip is generous*).
+- **Defuzzification**: Converts fuzzy results back into a crisp number (e.g., *tip = 17.4%*).
+
+Fuzzy inference systems are widely used in:
+- Control systems (washing machines, thermostats, robotics)
+- Decision support (recommendation engines, risk analysis)
+- AI reasoning under uncertainty
