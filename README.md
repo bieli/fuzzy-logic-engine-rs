@@ -139,6 +139,7 @@ impl MembershipKind {
   - [smart_office_energy_management.rs](examples/smart_office_energy_management.rs)
   - [steering_wheel_in_autonomous_car.rs](examples/steering_wheel_in_autonomous_car.rs)
   - [motor_control.rs](examples/motor_control.rs)
+  - [gas_burner.rs](examples/gas_burner.rs)
 
 ## How to start?
 

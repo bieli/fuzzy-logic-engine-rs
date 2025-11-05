@@ -1,5 +1,5 @@
-use crate::term::Term;
 use crate::fis::FisError;
+use crate::term::Term;
 
 #[derive(Debug, Clone, Copy)]
 pub struct Range {
